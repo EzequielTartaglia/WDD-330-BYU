@@ -2,7 +2,7 @@
 async function loadProducts() {
     try {
         // Hacer la solicitud para obtener el archivo products.json
-        const response = await fetch('json/products.json');
+        const response = await fetch('./json/products.json');
 
         // Verificar si la solicitud fue exitosa (código de estado 200)
         if (!response.ok) {
