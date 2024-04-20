@@ -38,7 +38,7 @@ const products = [
       productListHTML += `
         <li class="product-card" aria-label="${product.name} product">
           <a href="${product.url}" aria-label="Link to ${product.name} product">
-            <img src="./images/tents/${product.image}" alt="${product.name}" aria-description="${product.description}">
+            <img src="images/tents/${product.image}" alt="${product.name}" aria-description="${product.description}">
             <h3 class="card__brand">${product.brand}</h3>
             <h2 class="card__name">${product.name}</h2>
             <p class="product-card__price">${product.price}</p>
