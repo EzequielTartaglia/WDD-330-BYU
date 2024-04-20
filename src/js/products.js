@@ -1,44 +1,54 @@
-// Función para cargar el JSON desde un archivo externo
-async function loadProducts() {
-    try {
-        // Hacer la solicitud para obtener el archivo products.json
-        const response = await fetch('./json/products.json');
-
-        // Verificar si la solicitud fue exitosa (código de estado 200)
-        if (!response.ok) {
-            throw new Error('Failed to load products');
-        }
-
-        // Parsear el JSON del cuerpo de la respuesta
-        const products = await response.json();
-
-        // Llamar a la función para generar la lista de productos con el array cargado
-        generateProductList(products);
-    } catch (error) {
-        throw new Error('Error loading products:', error.message);
+const products = [
+    {
+      'brand': 'Marmots',
+      'name': 'Ajax Tent - 3-Person, 3-Season',
+      'price': '$199.99',
+      'image': 'images/tents/marmot-ajax-tent-3-person-3-season-in-pale-pumpkin-terracotta~p~880rr_01~320.jpg',
+      'url': 'product_pages/marmot-ajax-3.html'
+    },
+    {
+      'brand': 'The North Face',
+      'name': 'Talus Tent - 4-Person, 3-Season',
+      'price': '$199.99',
+      'image': 'images/tents/the-north-face-talus-tent-4-person-3-season-in-golden-oak-saffron-yellow~p~985rf_01~320.jpg',
+      'url': 'product_pages/northface-talus-4.html'
+    },
+    {
+      'brand': 'The North Face',
+      'name': 'Alpine Guide Tent - 3-Person, 4-Season',
+      'price': '$349.99',
+      'image': 'images/tents/the-north-face-alpine-guide-tent-3-person-4-season-in-canary-yellow-high-rise-grey~p~985pr_01~320.jpg',
+      'url': 'product_pages/northface-alpine-3.html'
+    },
+    {
+      'brand': 'Cedar Ridge',
+      'name': 'Rimrock Tent - 2-Person, 3-Season',
+      'price': '$69.99',
+      'image': 'images/tents/cedar-ridge-rimrock-tent-2-person-3-season-in-rust-clay~p~344yj_01~320.jpg',
+      'url': 'product_pages/cedar-ridge-rimrock-2.html'
     }
-}
+  ]
 
-// Función para generar el HTML de la lista de productos
-function generateProductList(products) {
+  
+  // Función para generar el HTML de la lista de productos
+
     const container = document.getElementById('product-container');
     let productListHTML = '';
-
+  
     products.forEach(product => {
-        productListHTML += `
-        <li class="product-card">
-                <a href="${product.url}">
-                    <img src="${product.image}" alt="${product.name}">
-                    <h3 class="card__brand">${product.brand}</h3>
-                    <h2 class="card__name">${product.name}</h2>
-                    <p class="product-card__price">${product.price}</p>
-                </a>
+      productListHTML += `
+        <li class="product-card" aria-label="${product.name} product">
+          <a href="${product.url}" aria-label="Link to ${product.name} product">
+            <img src="${product.image}" alt="${product.name}" aria-description="${product.description}">
+            <h3 class="card__brand">${product.brand}</h3>
+            <h2 class="card__name">${product.name}</h2>
+            <p class="product-card__price">${product.price}</p>
+          </a>
         </li>
-        `;
+      `;
     });
-
+  
     container.innerHTML = productListHTML;
-}
+  
 
-// Llama a la función para cargar el JSON y generar la lista de productos al cargar la página
-loadProducts();
+  
