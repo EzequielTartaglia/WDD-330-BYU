@@ -4,7 +4,11 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
   root: 'src/',
-
+  server: {
+    cors: true, // Habilitar CORS para todas las rutas
+    // Opcional: Configurar opciones específicas de CORS
+    // cors: { origin: 'http://example.com' }
+  },
   build: {
     outDir: '../dist',
     rollupOptions: {
