@@ -4,7 +4,7 @@
     "NameWithoutBrand": "Ajax Tent - 3-Person, 3-Season",
     "Name": "Marmot Ajax Tent - 3-Person, 3-Season",
     "Image": "../images/tents/marmot-ajax-tent-3-person-3-season-in-pale-pumpkin-terracotta~p~880rr_01~320.jpg",
-    "ImageProduction": "assets/marmot-ajax-tent-3-person-3-season-in-pale-pumpkin-terracotta~p~880rr_01~320.jpg",
+    "ImageProduction": "https://raw.githubusercontent.com/EzequielTartaglia/WDD-330-BYU/main/src/images/tents/marmot-ajax-tent-3-person-3-season-in-pale-pumpkin-terracotta%7Ep%7E880rr_01%7E320.jpg",
 
     "SizesAvailable": {},
     "Colors": [
@@ -28,7 +28,7 @@
     "NameWithoutBrand": "Talus Tent - 4-Person, 3-Season",
     "Name": "The North Face Talus Tent - 4-Person, 3-Season",
     "Image": "../images/tents/the-north-face-talus-tent-4-person-3-season-in-golden-oak-saffron-yellow~p~985rf_01~320.jpg",
-    "ImageProduction": "assets/the-north-face-talus-tent-4-person-3-season-in-golden-oak-saffron-yellow~p~985rf_01~320.jpg",
+    "ImageProduction": "https://raw.githubusercontent.com/EzequielTartaglia/WDD-330-BYU/main/src/images/tents/the-north-face-talus-tent-4-person-3-season-in-golden-oak-saffron-yellow%7Ep%7E985rf_01%7E320.jpg",
 
     "SizesAvailable": {},
     "Colors": [
@@ -51,7 +51,7 @@
     "NameWithoutBrand": "Talus Tent - 3-Person, 3-Season",
     "Name": "The North Face Talus Tent - 3-Person, 3-Season",
     "Image": "../images/tents/the-north-face-talus-tent-4-person-3-season-in-golden-oak-saffron-yellow~p~985rf_01~320.jpg",
-    "ImageProduction": "assets/the-north-face-talus-tent-4-person-3-season-in-golden-oak-saffron-yellow~p~985rf_01~320.jpg",
+    "ImageProduction": "https://raw.githubusercontent.com/EzequielTartaglia/WDD-330-BYU/main/src/images/tents/the-north-face-talus-tent-4-person-3-season-in-golden-oak-saffron-yellow%7Ep%7E985rf_01%7E320.jpg",
 
     "SizesAvailable": {},
     "Colors": [
@@ -74,7 +74,7 @@
     "NameWithoutBrand": "Alpine Guide Tent - 3-Person, 4-Season",
     "Name": "The North Face Alpine Guide Tent - 3-Person, 4-Season",
     "Image": "../images/tents/the-north-face-alpine-guide-tent-3-person-4-season-in-canary-yellow-high-rise-grey~p~985pr_01~320.jpg",
-    "ImageProduction": "assets/the-north-face-alpine-guide-tent-3-person-4-season-in-canary-yellow-high-rise-grey~p~985pr_01~320.jpg",
+    "ImageProduction": "https://raw.githubusercontent.com/EzequielTartaglia/WDD-330-BYU/main/src/images/tents/the-north-face-alpine-guide-tent-3-person-4-season-in-canary-yellow-high-rise-grey%7Ep%7E985pr_01%7E320.jpg",
 
     "SizesAvailable": {},
     "Colors": [
@@ -97,7 +97,7 @@
     "NameWithoutBrand": "Ajax Tent - 2-Person, 3-Season",
     "Name": "Marmot Ajax Tent - 2-Person, 3-Season",
     "Image": "../images/tents/marmot-ajax-tent-2-person-3-season-in-pale-pumpkin-terracotta~p~880rt_01~320.jpg",
-    "ImageProduction": "assets/marmot-ajax-tent-2-person-3-season-in-pale-pumpkin-terracotta~p~880rt_01~320.jpg",
+    "ImageProduction": "https://raw.githubusercontent.com/EzequielTartaglia/WDD-330-BYU/main/src/images/tents/marmot-ajax-tent-3-person-3-season-in-pale-pumpkin-terracotta%7Ep%7E880rr_01%7E320.jpg",
 
     "SizesAvailable": {},
     "Colors": [
