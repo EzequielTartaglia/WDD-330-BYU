@@ -1,9 +1,5 @@
 import { getLocalStorage } from './utils.mjs';
 
-function isLocalhost() {
-  return window.location.href.includes('localhost');
-}
-
 function renderCartContents() {
   // Get cart items from local storage
   const cartItems = getLocalStorage('so-cart');
@@ -26,21 +22,11 @@ function renderCartContents() {
 }
 
 function cartItemTemplate(item) {
-    // Construye la ruta base para las imágenes
-    let baseUrl = '';
-    if (!isLocalhost()) {
-      // Si la aplicación no se está ejecutando en localhost, cambia "images/tents" a "assets"
-      baseUrl = item.Image.replace('..images/tents', 'assets');
-    } else {
-      // Si la aplicación se está ejecutando en localhost, deja la ruta como está
-      baseUrl = item.Image;
-    }
-
   // Create HTML template for a cart item
   const newItem = `
     <li class="cart-card divider">
       <a href="#" class="cart-card__image">
-        <img src="${baseUrl}" alt="${item.Name}" />
+        <img src="${item.Image}" alt="${item.Name}" />
       </a>
       <a href="#">
         <h2 class="card__name">${item.Name}</h2>
