@@ -30,7 +30,7 @@ function cartItemTemplate(item) {
     let baseUrl = '';
     if (!isLocalhost()) {
       // Si la aplicación no se está ejecutando en localhost, cambia "images/tents" a "assets"
-      baseUrl = item.Image.replace('images/tents', 'assets');
+      baseUrl = item.Image.replace('..images/tents', 'assets');
     } else {
       // Si la aplicación se está ejecutando en localhost, deja la ruta como está
       baseUrl = item.Image;
