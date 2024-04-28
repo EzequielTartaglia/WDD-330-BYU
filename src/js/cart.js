@@ -27,7 +27,7 @@ function cartItemTemplate(item) {
 
   // Create HTML template for a cart item
   const newItem = `
-    <li class="cart-card divider">
+    <li class="cart-card divider" style="width:100%">
       <a href="#" class="cart-card__image">
         <img src="${imageSource}" alt="${item.Name}" />
       </a>
