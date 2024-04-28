@@ -25,9 +25,13 @@ function cartItemTemplate(item) {
   // Determine the image source based on the host
   const imageSource = window.location.hostname === 'localhost' ? item.Image : item.ImageProduction;
 
+  const specialStyle = 'position:relative;width:100%;';
+
   // Create HTML template for a cart item
   const newItem = `
-    <li class="cart-card divider" style="width:100%">
+    <li class="cart-card divider" style="${specialStyle}">
+    <button class="remove-item">X</button>
+
       <a href="#" class="cart-card__image">
         <img src="${imageSource}" alt="${item.Name}" />
       </a>
@@ -41,6 +45,7 @@ function cartItemTemplate(item) {
   `;
   return newItem;
 }
+
 
 // Call the function to render cart contents when the page loads
 renderCartContents();
