@@ -1,13 +1,13 @@
-import { getLocalStorage } from './utils.mjs';
+import { getLocalStorage } from "./utils.mjs";
 
 function renderCartContents() {
   // Get cart items from local storage
-  const cartItems = getLocalStorage('so-cart');
+  const cartItems = getLocalStorage("so-cart");
   
   // Check if there are items in the cart
   if (!cartItems || cartItems.length === 0) {
     // If no items, display a message or perform another appropriate action
-    document.querySelector('.product-list').innerHTML = '<li>No products in the cart</li>';
+    document.querySelector(".product-list").innerHTML = "<li>No products in the cart</li>";
     return;
   }
 
@@ -18,12 +18,12 @@ function renderCartContents() {
   const htmlItems = cartArray.map((item) => cartItemTemplate(item));
   
   // Display items in the product list
-  document.querySelector('.product-list').innerHTML = htmlItems.join('');
+  document.querySelector(".product-list").innerHTML = htmlItems.join("");
 }
 
 function cartItemTemplate(item) {
   // Determine the image source based on the host
-  const imageSource = window.location.hostname === 'localhost' ? item.Image : item.ImageProduction;
+  const imageSource = window.location.hostname === "localhost" ? item.Image : item.ImageProduction;
 
   // Create HTML template for a cart item
   const newItem = `
