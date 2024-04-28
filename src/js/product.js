@@ -1,6 +1,12 @@
 import { getLocalStorage, setLocalStorage } from './utils.mjs';
 import ProductData from './ProductData.mjs';
 
+// Get the current URL
+const currentUrl = new URL(window.location.href);
+// Get the 'Id' parameter from the URL
+const productId = currentUrl.searchParams.get('Id');
+
+
 const dataSource = new ProductData('tents');
 
 function addProductToCart(product) {
@@ -19,10 +25,35 @@ function addProductToCart(product) {
   setLocalStorage('so-cart', cartItems);
 }
 // add to cart button event handler
-async function addToCartHandler(e) {
-  const product = await dataSource.findProductById(e.target.dataset.id);
+async function addToCartHandler() {
+  const product = await dataSource.findProductById(productId);
   addProductToCart(product);
 }
 
-// add listener to Add to Cart button
+
+// Function to generate and insert the inner HTML for the product
+async function renderProductHTML() {
+  // Find the current product by its ID
+  const currentProduct = await dataSource.findProductById(productId);
+
+  // Get the parent element where the product HTML will be inserted
+  const productContainer = document.getElementById('productDetail');
+
+  // Create the HTML for the product
+  const productHTML = `
+    <h3>${currentProduct.Brand.Name}</h3>
+    <h2 class="divider">${currentProduct.Name}</h2>
+    <img class="divider" src="${currentProduct.Image}" alt="${currentProduct.Name}">
+    <p class="product-card__price">$${currentProduct.ListPrice}</p>
+    <p class="product__color">${currentProduct.Colors[0].ColorName}</p>
+    <p class="product__description">${currentProduct.DescriptionHtmlSimple}</p>
+  `;
+
+  // Insert the product HTML into the parent element
+  productContainer.innerHTML = productHTML;
+}
+
+// Call the function to generate and insert the product HTML
+renderProductHTML();
+
 document.getElementById('addToCart').addEventListener('click', addToCartHandler);

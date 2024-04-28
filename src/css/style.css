@@ -166,6 +166,10 @@ button {
   width: 100%;
 }
 
+.product-detail__add{
+  margin-bottom: 10%;
+}
+
 /* Start cart list card styles */
 .cart-card {
   display: grid;
