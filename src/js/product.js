@@ -39,11 +39,13 @@ async function renderProductHTML() {
   // Get the parent element where the product HTML will be inserted
   const productContainer = document.getElementById('productDetail');
 
+  const imageSource = window.location.hostname === 'localhost' ? currentProduct.Image : currentProduct.ImageProduction;
+
   // Create the HTML for the product
   const productHTML = `
     <h3>${currentProduct.Brand.Name}</h3>
     <h2 class="divider">${currentProduct.Name}</h2>
-    <img class="divider" src="${currentProduct.Image}" alt="${currentProduct.Name}">
+    <img class="divider" src="${imageSource}" alt="${currentProduct.Name}">
     <p class="product-card__price">$${currentProduct.ListPrice}</p>
     <p class="product__color">${currentProduct.Colors[0].ColorName}</p>
     <p class="product__description">${currentProduct.DescriptionHtmlSimple}</p>
