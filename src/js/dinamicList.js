@@ -7,6 +7,8 @@ const searchTerm = urlParams.get('search'); // Get the value of the 'search' par
 
 // Get the parent element where you want to add the product cards
 const productList = document.getElementById('productsList');
+const categoryName = document.getElementById('categoryName');
+categoryName.innerText = searchTerm.charAt(0).toUpperCase() + searchTerm.slice(1).toLowerCase();
 
 // Create an instance of ProductData and fetch products based on the search term
 const productsData = new ProductData(searchTerm);
