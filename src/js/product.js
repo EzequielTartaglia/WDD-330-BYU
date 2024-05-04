@@ -26,9 +26,8 @@ function addProductToCart(product) {
   const cartProduct = {
     Id: product.Id,
     Name: product.Name,
-    Image: searchTerm !== 'tents' ? 
-    (window.location.hostname === 'localhost' ? product.Images.PrimaryLarge : product.Images.ImageProduction) :
-    (window.location.hostname === 'localhost' ? product.Image : product.ImageProduction),
+    Image: searchTerm === 'tents' ? 
+    (window.location.hostname === 'localhost' ? product.Image : product.ImageProduction) : product.Images.PrimaryLarge,
     Price: product.ListPrice,
     Color: product.Colors[0].ColorName // Assuming you want to include the color as well
     // Add more fields as needed
