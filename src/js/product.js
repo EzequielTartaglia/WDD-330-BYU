@@ -5,9 +5,13 @@ import ProductData from './ProductData.mjs';
 const currentUrl = new URL(window.location.href);
 // Get the 'Id' parameter from the URL
 const productId = currentUrl.searchParams.get('Id');
+// Get the search term from the URL
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+const searchTerm = urlParams.get('category'); // Get the value of the 'search' parameter
 
 
-const dataSource = new ProductData('tents');
+const dataSource = new ProductData(searchTerm);
 
 function addProductToCart(product) {
   // Get the existing cart items from localStorage

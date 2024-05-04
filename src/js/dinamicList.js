@@ -50,7 +50,7 @@ productsData.getData().then(data => {
 
         return `
             <li class="product-card" id="${product.Id}">
-                <a href="product_pages/index.html?Id=${product.Id}">
+                <a href="product_pages/index.html?category=${searchTerm}&Id=${product.Id}">
                     <img src="${imageSource}" alt="${product.Name}">
                     <h3 class="card__brand">${product.Brand.Name}</h3>
                     <h2 class="card__name">${product.Name}</h2>
