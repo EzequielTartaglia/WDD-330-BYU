@@ -23,11 +23,23 @@ function addProductToCart(product) {
   }
 
   // Add the new product to the cart items array
-  cartItems.push(product);
+  const cartProduct = {
+    Id: product.Id,
+    Name: product.Name,
+    Image: searchTerm !== 'tents' ? 
+    (window.location.hostname === 'localhost' ? product.Images.PrimaryMedium : product.Images.ImageProduction) :
+    (window.location.hostname === 'localhost' ? product.Image : product.ImageProduction),
+    Price: product.ListPrice,
+    Color: product.Colors[0].ColorName // Assuming you want to include the color as well
+    // Add more fields as needed
+  };
+
+  cartItems.push(cartProduct);
 
   // Save the updated cart items back to localStorage
   setLocalStorage('so-cart', cartItems);
 }
+
 // add to cart button event handler
 async function addToCartHandler() {
   const product = await dataSource.findProductById(productId);
