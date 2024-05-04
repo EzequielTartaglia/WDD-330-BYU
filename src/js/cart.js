@@ -28,8 +28,6 @@ function renderCartContents() {
 }
 
 function cartItemTemplate(item) {
-  // Determine the image source based on the host
-  const imageSource = window.location.hostname === 'localhost' ? item.Image : item.ImageProduction;
 
   const specialStyle = 'position:relative;width:100%;';
 
@@ -39,7 +37,7 @@ function cartItemTemplate(item) {
       <button class="remove-item" data-product-id="${item.Id}">X</button>
 
       <a href="#" class="cart-card__image">
-        <img src="${imageSource}" alt="${item.Name}" />
+        <img src="${item.Image}" alt="${item.Name}" />
       </a>
       <a href="#">
         <h2 class="card__name">${item.Name}</h2>
