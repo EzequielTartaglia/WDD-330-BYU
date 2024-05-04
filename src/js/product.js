@@ -43,8 +43,13 @@ async function renderProductHTML() {
   // Get the parent element where the product HTML will be inserted
   const productContainer = document.getElementById('productDetail');
 
-  const imageSource = window.location.hostname === 'localhost' ? currentProduct.Image : currentProduct.ImageProduction;
-
+  let imageSource;
+  if (window.location.hostname === 'localhost') {
+      imageSource = searchTerm !== 'tents' ? currentProduct.Images.PrimaryMedium : currentProduct.Image;
+  } else {
+      imageSource = searchTerm !== 'tents' ? currentProduct.Images.PrimaryMedium : currentProduct.ImageProduction;
+  }
+  
   // Create the HTML for the product
   const productHTML = `
     <h3>${currentProduct.Brand.Name}</h3>
