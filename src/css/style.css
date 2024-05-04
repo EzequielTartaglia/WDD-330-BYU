@@ -215,6 +215,19 @@ button {
   cursor: pointer;
 }
 
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.image-container > div {
+  text-align: center;
+  margin: 0 20px; /* Espacio horizontal entre cada imagen y su texto */
+}
+.image-container img {
+  max-width: 100px; /* Ancho máximo de las imágenes */
+  height: auto;
+}
 
 @media screen and (min-width: 500px) {
   body {
