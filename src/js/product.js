@@ -27,7 +27,7 @@ function addProductToCart(product) {
     Id: product.Id,
     Name: product.Name,
     Image: searchTerm !== 'tents' ? 
-    (window.location.hostname === 'localhost' ? product.Images.PrimaryMedium : product.Images.ImageProduction) :
+    (window.location.hostname === 'localhost' ? product.Images.PrimaryLarge : product.Images.ImageProduction) :
     (window.location.hostname === 'localhost' ? product.Image : product.ImageProduction),
     Price: product.ListPrice,
     Color: product.Colors[0].ColorName // Assuming you want to include the color as well
@@ -57,9 +57,9 @@ async function renderProductHTML() {
 
   let imageSource;
   if (window.location.hostname === 'localhost') {
-      imageSource = searchTerm !== 'tents' ? currentProduct.Images.PrimaryMedium : currentProduct.Image;
+      imageSource = searchTerm !== 'tents' ? currentProduct.Images.PrimaryLarge : currentProduct.Image;
   } else {
-      imageSource = searchTerm !== 'tents' ? currentProduct.Images.PrimaryMedium : currentProduct.ImageProduction;
+      imageSource = searchTerm !== 'tents' ? currentProduct.Images.PrimaryLarge : currentProduct.ImageProduction;
   }
   
   // Create the HTML for the product
