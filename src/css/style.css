@@ -220,13 +220,17 @@ button {
   justify-content: center;
   align-items: center;
 }
-.image-container > div {
+.image-container > a {
   text-align: center;
-  margin: 0 20px; /* Espacio horizontal entre cada imagen y su texto */
+  margin: 0 20px; 
 }
 .image-container img {
-  max-width: 100px; /* Ancho máximo de las imágenes */
+  max-width: 100px; 
   height: auto;
+}
+
+.image-container p {
+  font-weight: 700;
 }
 
 @media screen and (min-width: 500px) {
