@@ -8,46 +8,54 @@ const searchTerm = urlParams.get('search'); // Get the value of the 'search' par
 // Get the parent element where you want to add the product cards
 const productList = document.getElementById('productsList');
 const categoryName = document.getElementById('categoryName');
-categoryName.innerText = searchTerm.charAt(0).toUpperCase() + searchTerm.slice(1).toLowerCase();
+categoryName.innerText =
+  searchTerm.charAt(0).toUpperCase() + searchTerm.slice(1).toLowerCase();
 
 // Create an instance of ProductData and fetch products based on the search term
 const productsData = new ProductData(searchTerm);
 
-productsData.getData().then(data => {
-    
+productsData
+  .getData()
+  .then((data) => {
     let products;
 
     switch (searchTerm) {
-        case 'tents':
-            products = data;
-            break;
+      case 'tents':
+        products = data;
+        break;
 
-        case 'backpacks':
-            products = data.Result;
-            break;
+      case 'backpacks':
+        products = data.Result;
+        break;
 
-        case 'sleeping-bags':
-            products = data.Result;
-            break;
+      case 'sleeping-bags':
+        products = data.Result;
+        break;
 
-        case 'hammocks':
-            products = data.Result;
-            break;
-            
-        default:
-            products = data;
-            break;
+      case 'hammocks':
+        products = data.Result;
+        break;
+
+      default:
+        products = data;
+        break;
     }
 
-
     // Create an HTML string representing all the product cards
-    const productCardsHTML = products.map(product => {
+    const productCardsHTML = products
+      .map((product) => {
         // Determine the image source based on the host and search term
         let imageSource;
         if (window.location.hostname === 'localhost') {
-            imageSource = searchTerm !== 'tents' ? product.Images.PrimaryMedium : product.Image;
+          imageSource =
+            searchTerm !== 'tents'
+              ? product.Images.PrimaryMedium
+              : product.Image;
         } else {
-            imageSource = searchTerm !== 'tents' ? product.Images.PrimaryMedium : product.ImageProduction;
+          imageSource =
+            searchTerm !== 'tents'
+              ? product.Images.PrimaryMedium
+              : product.ImageProduction;
         }
 
         return `
@@ -60,10 +68,12 @@ productsData.getData().then(data => {
                 </a>
             </li>
         `;
-    }).join('');
+      })
+      .join('');
 
     // Add the generated HTML to the container element
     productList.innerHTML = productCardsHTML;
-}).catch(error => {
+  })
+  .catch((error) => {
     //console.error('Error fetching product data:', error);
-});
+  });

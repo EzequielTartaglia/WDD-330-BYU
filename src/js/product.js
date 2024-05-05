@@ -10,7 +10,6 @@ const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const searchTerm = urlParams.get('category'); // Get the value of the 'search' parameter
 
-
 const dataSource = new ProductData(searchTerm);
 
 function addProductToCart(product) {
@@ -26,10 +25,14 @@ function addProductToCart(product) {
   const cartProduct = {
     Id: product.Id,
     Name: product.Name,
-    Image: searchTerm === 'tents' ? 
-    (window.location.hostname === 'localhost' ? product.Image : product.ImageProduction) : product.Images.PrimaryLarge,
+    Image:
+      searchTerm === 'tents'
+        ? window.location.hostname === 'localhost'
+          ? product.Image
+          : product.ImageProduction
+        : product.Images.PrimaryLarge,
     Price: product.ListPrice,
-    Color: product.Colors[0].ColorName // Assuming you want to include the color as well
+    Color: product.Colors[0].ColorName, // Assuming you want to include the color as well
     // Add more fields as needed
   };
 
@@ -45,7 +48,6 @@ async function addToCartHandler() {
   addProductToCart(product);
 }
 
-
 // Function to generate and insert the inner HTML for the product
 async function renderProductHTML() {
   // Find the current product by its ID
@@ -56,11 +58,17 @@ async function renderProductHTML() {
 
   let imageSource;
   if (window.location.hostname === 'localhost') {
-      imageSource = searchTerm !== 'tents' ? currentProduct.Images.PrimaryLarge : currentProduct.Image;
+    imageSource =
+      searchTerm !== 'tents'
+        ? currentProduct.Images.PrimaryLarge
+        : currentProduct.Image;
   } else {
-      imageSource = searchTerm !== 'tents' ? currentProduct.Images.PrimaryLarge : currentProduct.ImageProduction;
+    imageSource =
+      searchTerm !== 'tents'
+        ? currentProduct.Images.PrimaryLarge
+        : currentProduct.ImageProduction;
   }
-  
+
   // Create the HTML for the product
   const productHTML = `
     <h3>${currentProduct.Brand.Name}</h3>
@@ -78,4 +86,6 @@ async function renderProductHTML() {
 // Call the function to generate and insert the product HTML
 renderProductHTML();
 
-document.getElementById('addToCart').addEventListener('click', addToCartHandler);
+document
+  .getElementById('addToCart')
+  .addEventListener('click', addToCartHandler);

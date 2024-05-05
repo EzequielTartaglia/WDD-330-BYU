@@ -1,13 +1,18 @@
 import { getLocalStorage, setLocalStorage } from './utils.mjs';
 
+const totalCart = document.getElementById('totalCart');
+const cartTotalP = document.getElementById('cartTotalP');
+
+
 function renderCartContents() {
   // Get cart items from local storage
   const cartItems = getLocalStorage('so-cart');
-  
+
   // Check if there are items in the cart
   if (!cartItems || cartItems.length === 0) {
     // If no items, display a message or perform another appropriate action
-    document.querySelector('.product-list').innerHTML = '<li>No products in the cart</li>';
+    document.querySelector('.product-list').innerHTML =
+      '<li>No products in the cart</li>';
     return;
   }
 
@@ -16,19 +21,36 @@ function renderCartContents() {
 
   // Map cart items to HTML elements
   const htmlItems = cartArray.map((item) => cartItemTemplate(item));
-  
+
+  // Calculate total cart price
+  const totalCartPrice = cartArray.reduce(
+    (total, item) => total + item.Price,
+    0,
+  );
+
+  // Update total cart HTML element
+  totalCart.innerText = `$ ${totalCartPrice.toFixed(2)}`;
+
+    // Show total cart if total is not zero
+    if (totalCartPrice !== 0) {
+      totalCart.classList.remove('hide')
+      cartTotalP.classList.remove('hide')
+    } else {
+      totalCart.classList.add('hide')
+      cartTotalP.classList.add('hide')
+    }
+
   // Display items in the product list
   document.querySelector('.product-list').innerHTML = htmlItems.join('');
 
   // Add event listeners to the remove buttons
   const removeButtons = document.querySelectorAll('.remove-item');
-  removeButtons.forEach(button => {
+  removeButtons.forEach((button) => {
     button.addEventListener('click', removeItemFromCart);
   });
 }
 
 function cartItemTemplate(item) {
-
   const specialStyle = 'position:relative;width:100%;';
 
   // Create HTML template for a cart item
@@ -63,7 +85,7 @@ function removeItemFromCart(event) {
   }
 
   // Find the index of the first occurrence of the item with the specified productId
-  const index = cartItems.findIndex(item => item.Id === productId);
+  const index = cartItems.findIndex((item) => item.Id === productId);
 
   // If the product is found, remove it from the array
   if (index !== -1) {
@@ -71,6 +93,24 @@ function removeItemFromCart(event) {
 
     // Save the updated cart items back to localStorage
     setLocalStorage('so-cart', cartItems);
+    // Calculate total cart price
+    const totalCartPrice = cartItems.reduce(
+      (total, item) => total + item.Price,
+      0,
+    );
+
+    // Update total cart HTML element
+    totalCart.innerText = `$ ${totalCartPrice.toFixed(2)}`;
+
+      // Show total cart if total is not zero
+  if (totalCartPrice !== 0) {
+    totalCart.classList.remove('hide');
+    cartTotalP.classList.remove('hide')
+
+  } else {
+    totalCart.classList.add('hide');
+    cartTotalP.classList.add('hide')
+  }
 
     // Re-render the cart contents
     renderCartContents();
