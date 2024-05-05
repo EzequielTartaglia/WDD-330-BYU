@@ -256,6 +256,13 @@ button {
   color: black;
 }
 
+.image-container{
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  list-style-type: none;
+  padding: 0;
+}
 
 @media screen and (min-width: 500px) {
   body {
@@ -269,9 +276,25 @@ button {
     font-size: inherit;
     grid-template-columns: 150px auto 15%;
   }
+
 }
 
 footer {
   font-size: var(--small-font);
   padding: 1em;
+}
+
+
+@media screen and (max-width: 500px) {
+  .image-container {
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    padding: 10px 20px;
+  }
+  .image-container img {
+    width: 100px;
+    height: auto;
+  }
+  
 }
