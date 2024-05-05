@@ -110,6 +110,20 @@ button {
   fill: gray;
 }
 
+.cart-count {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 18px;
+  height: 18px;
+  background-color: var(--primary-color);
+  color: black;
+  border-radius: 50%;
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 20px;
+}
+
 /* End cart icon styles */
 
 .mission {

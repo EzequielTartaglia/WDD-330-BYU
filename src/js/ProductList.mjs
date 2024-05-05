@@ -1,4 +1,4 @@
-// ProductList.mjs
+// ProductList.mjs RKippins
 
 // Import ProductData class from ProductData.mjs
 import ProductData from './ProductData.mjs';

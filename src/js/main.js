@@ -1,5 +1,6 @@
 import ProductData from "./ProductData.mjs";
 import ProductList from "./ProductList.mjs";
+import { getCartCount } from "./cart.js";
 
 // Define the category
 const category = "Tents";
