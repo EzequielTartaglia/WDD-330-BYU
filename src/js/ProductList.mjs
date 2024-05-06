@@ -1,40 +1,43 @@
-import { renderListWithTemplate } from "./utils.mjs";
+// Import ProductData class from ProductData.mjs
+import ProductData from './ProductData.mjs';
 
-function productCardTemplate(product) {
-  return `<li class="product-card">
-  <a href="product_pages/index.html?product=${product.Id}">
-  <img
-    src="${product.Image}"
-    alt="Image of ${product.Name}"
-  />
-  <h3 class="card__brand">${product.Brand.Name}</h3>
-  <h2 class="card__name">${product.Name}</h2>
-  <p class="product-card__price">$${product.FinalPrice}</p></a>
-</li>`;
-}
-
+// Define the ProductList class
 export default class ProductList {
-  constructor(category, dataSource, listElement) {
-    // We passed in this information to make our class as reusable as possible.
-    // Being able to define these things when we use the class will make it very flexible
+  constructor(category) {
     this.category = category;
-    this.dataSource = dataSource;
-    this.listElement = listElement;
-  }
-  async init() {
-    // our dataSource will return a Promise...so we can use await to resolve it.
-    const list = await this.dataSource.getData();
-    // render the list
-    this.renderList(list);
-  }
-  // render after doing the first stretch
-  renderList(list) {
-    renderListWithTemplate(productCardTemplate, this.listElement, list);
+    this.productData = new ProductData(category);
+    this.productListElement = document.getElementById('productsList'); // Updated this line
   }
 
-  // render before doing the stretch
-  // renderList(list) {
-  //   const htmlStrings = list.map(productCardTemplate);
-  //   this.listElement.insertAdjacentHTML("afterbegin", htmlStrings.join(""));
-  // }
+  async init() {
+    try {
+      // Fetch product data
+      const productList = await this.productData.getData();
+
+      // Render product list
+      this.renderProductList(productList);
+    } catch (error) {
+      console.error('Error fetching product data:', error);
+    }
+  }
+
+  renderProductList(products) {
+    const productCardsHTML = products.map(product => this.getProductCardHTML(product)).join('');
+    this.productListElement.innerHTML = productCardsHTML;
+  }
+
+  getProductCardHTML(product) {
+    // Determine the image source based on the host
+    const imageSource = window.location.hostname === 'localhost' ? product.Image : product.ImageProduction;
+    return `
+      <li class="product-card" id="${product.Id}">
+        <a href="product_pages/index.html?Id=${product.Id}">
+          <img src="${imageSource}" alt="${product.Name}">
+          <h3 class="card__brand">${product.Brand.Name}</h3>
+          <h2 class="card__name">${product.Name}</h2>
+          <p class="product-card__price">$${product.ListPrice}</p>
+        </a>
+      </li>
+    `;
+  }
 }
