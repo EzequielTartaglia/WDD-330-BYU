@@ -1,6 +1,6 @@
 import { getLocalStorage, setLocalStorage } from './utils.mjs';
 import ProductData from './ProductData.mjs';
-import Alert from './ALert.mjs';
+import Alert from './Alert';
 
 // Get the current URL
 const currentUrl = new URL(window.location.href);
