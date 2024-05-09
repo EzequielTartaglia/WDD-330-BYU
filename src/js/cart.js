@@ -11,8 +11,16 @@ function renderCartContents() {
   // Check if there are items in the cart
   if (!cartItems || cartItems.length === 0) {
     // If no items, display a message or perform another appropriate action
+
+    document.querySelector('.product-list').innerHTML = '<li>No products in the cart</li>';
+    
+    // Update the cart count to 0
+    updateCartCount(0);
+    
+
     document.querySelector('.product-list').innerHTML =
       '<li>No products in the cart</li>';
+
     return;
   }
 
@@ -42,6 +50,9 @@ function renderCartContents() {
 
   // Display items in the product list
   document.querySelector('.product-list').innerHTML = htmlItems.join('');
+
+  // Update the cart count
+  updateCartCount(cartArray.length);
 
   // Add event listeners to the remove buttons
   const removeButtons = document.querySelectorAll('.remove-item');
@@ -117,5 +128,20 @@ function removeItemFromCart(event) {
   }
 }
 
+function updateCartCount(count) {
+  // Get the span element for the cart count
+  const cartCountSpan = document.querySelector('.cart-count');
+  
+  // Update the text content of the span element to the cart count
+  cartCountSpan.textContent = count;
+}
+
 // Call the function to render cart contents when the page loads
 renderCartContents();
+
+
+export function getCartCount() {
+  // Get the cart count from the DOM
+  const cartCountSpan = document.querySelector('.cart-count');
+  return parseInt(cartCountSpan.textContent);
+}
