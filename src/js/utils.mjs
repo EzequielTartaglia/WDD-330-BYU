@@ -21,3 +21,14 @@ export function setClick(selector, callback) {
   });
   qs(selector).addEventListener('click', callback);
 }
+
+//Function to update the cart counter
+export function updateCartCount(cartKey = 'so-cart') {
+  const cartCountSpan = document.querySelector('.cart-count');
+  const cartItems = getLocalStorage(cartKey);
+  if (!cartItems || cartItems.length === 0) {
+    cartCountSpan.textContent = 0;
+  }
+  const totalItems = cartItems.length;
+  cartCountSpan.textContent = totalItems;
+}
