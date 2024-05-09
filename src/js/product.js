@@ -5,9 +5,12 @@ import ProductData from './ProductData.mjs';
 const currentUrl = new URL(window.location.href);
 // Get the 'Id' parameter from the URL
 const productId = currentUrl.searchParams.get('Id');
+// Get the search term from the URL
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+const searchTerm = urlParams.get('category'); // Get the value of the 'search' parameter
 
-
-const dataSource = new ProductData('tents');
+const dataSource = new ProductData(searchTerm);
 
 function addProductToCart(product) {
   // Get the existing cart items from localStorage
@@ -19,17 +22,31 @@ function addProductToCart(product) {
   }
 
   // Add the new product to the cart items array
-  cartItems.push(product);
+  const cartProduct = {
+    Id: product.Id,
+    Name: product.Name,
+    Image:
+      searchTerm === 'tents'
+        ? window.location.hostname === 'localhost'
+          ? product.Image
+          : product.ImageProduction
+        : product.Images.PrimaryLarge,
+    Price: product.ListPrice,
+    Color: product.Colors[0].ColorName, // Assuming you want to include the color as well
+    // Add more fields as needed
+  };
+
+  cartItems.push(cartProduct);
 
   // Save the updated cart items back to localStorage
   setLocalStorage('so-cart', cartItems);
 }
+
 // add to cart button event handler
 async function addToCartHandler() {
   const product = await dataSource.findProductById(productId);
   addProductToCart(product);
 }
-
 
 // Function to generate and insert the inner HTML for the product
 async function renderProductHTML() {
@@ -39,7 +56,18 @@ async function renderProductHTML() {
   // Get the parent element where the product HTML will be inserted
   const productContainer = document.getElementById('productDetail');
 
-  const imageSource = window.location.hostname === 'localhost' ? currentProduct.Image : currentProduct.ImageProduction;
+  let imageSource;
+  if (window.location.hostname === 'localhost') {
+    imageSource =
+      searchTerm !== 'tents'
+        ? currentProduct.Images.PrimaryLarge
+        : currentProduct.Image;
+  } else {
+    imageSource =
+      searchTerm !== 'tents'
+        ? currentProduct.Images.PrimaryLarge
+        : currentProduct.ImageProduction;
+  }
 
   // Create the HTML for the product
   const productHTML = `
@@ -58,4 +86,6 @@ async function renderProductHTML() {
 // Call the function to generate and insert the product HTML
 renderProductHTML();
 
-document.getElementById('addToCart').addEventListener('click', addToCartHandler);
+document
+  .getElementById('addToCart')
+  .addEventListener('click', addToCartHandler);
