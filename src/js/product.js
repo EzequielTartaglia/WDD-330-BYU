@@ -1,5 +1,6 @@
 import { getLocalStorage, setLocalStorage } from './utils.mjs';
 import ProductData from './ProductData.mjs';
+import Alert from './ALert.mjs';
 
 // Get the current URL
 const currentUrl = new URL(window.location.href);
@@ -89,3 +90,8 @@ renderProductHTML();
 document
   .getElementById('addToCart')
   .addEventListener('click', addToCartHandler);
+
+  
+// this code instaciat the alert modules and run it
+const alertManager = new Alert();
+alertManager.displayAlerts();
