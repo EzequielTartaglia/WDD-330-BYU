@@ -56,7 +56,7 @@ function cartItemTemplate(item) {
   // Create HTML template for a cart item
   const newItem = `
     <li class="cart-card divider" style="${specialStyle}">
-      <img src="../images/remove-from-cart.png" alt="My Image Button" class="remove-item" data-product-id="${item.Id}">
+      <button class="remove-item" data-product-id="${item.Id}">X</button>
 
       <a href="#" class="cart-card__image">
         <img src="${item.Image}" alt="${item.Name}" />

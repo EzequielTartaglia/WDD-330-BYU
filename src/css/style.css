@@ -239,10 +239,11 @@ button {
 }
 
 .remove-item {
-  width: 60px;
   position: absolute;
   top: 5px;
   right: 5px;
+  font-size: 12px;
+  color: #ccc;
   cursor: pointer;
 }
 
