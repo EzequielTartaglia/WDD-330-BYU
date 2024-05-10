@@ -1,4 +1,6 @@
-import { getLocalStorage, setLocalStorage } from './utils.mjs';
+
+
+import { loadHeaderFooter, getLocalStorage, setLocalStorage } from './utils.mjs';
 
 const totalCart = document.getElementById('totalCart');
 const cartTotalP = document.getElementById('cartTotalP');
@@ -118,4 +120,14 @@ function removeItemFromCart(event) {
 }
 
 // Call the function to render cart contents when the page loads
-renderCartContents();
+// renderCartContents();
+
+
+// loadHeaderFooter();
+
+
+// Call the function to load header and footer when the DOM content is loaded
+document.addEventListener('DOMContentLoaded', () => {
+  loadHeaderFooter();
+  renderCartContents(); // Also call renderCartContents here if needed
+});

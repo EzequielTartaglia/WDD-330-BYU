@@ -1,4 +1,6 @@
-import { getLocalStorage, setLocalStorage } from './utils.mjs';
+import { loadHeaderFooter, getLocalStorage, setLocalStorage } from './utils.mjs';
+
+
 import ProductData from './ProductData.mjs';
 import Alert from './Alert';
 
@@ -92,6 +94,10 @@ document
   .addEventListener('click', addToCartHandler);
 
   
-// this code instaciat the alert modules and run it
+// this code instanciat the alert modules and run it
 const alertManager = new Alert();
 alertManager.displayAlerts();
+
+
+
+loadHeaderFooter();
