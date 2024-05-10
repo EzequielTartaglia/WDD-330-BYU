@@ -1,4 +1,4 @@
-import { getLocalStorage, setLocalStorage } from './utils.mjs';
+import { getLocalStorage, setLocalStorage, updateCartCount } from './utils.mjs';
 
 const totalCart = document.getElementById('totalCart');
 const cartTotalP = document.getElementById('cartTotalP');
@@ -7,7 +7,7 @@ const cartTotalP = document.getElementById('cartTotalP');
 function renderCartContents() {
   // Get cart items from local storage
   const cartItems = getLocalStorage('so-cart');
-
+  updateCartCount();
   // Check if there are items in the cart
   if (!cartItems || cartItems.length === 0) {
     // If no items, display a message or perform another appropriate action
