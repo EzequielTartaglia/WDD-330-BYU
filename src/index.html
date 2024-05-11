@@ -96,6 +96,23 @@
 
       <section class="products">
         <h2 id="categoryName"></h2>
+        <!-- Agrega estos botones dentro de la sección de productos en tu HTML -->
+<!-- Reemplaza los botones por un selector de opciones en tu HTML -->
+<section class="products">
+  <h2 id="categoryName"></h2>
+  <div class="sorting-selector">
+    <label for="sortingOptions">Sort by:</label>
+    <select id="sortingOptions">
+      <option value="priceAsc">Price (Low to High)</option>
+      <option value="priceDesc">Price (High to Low)</option>
+      <option value="nameAsc">Name (A to Z)</option>
+      <option value="nameDesc">Name (Z to A)</option>
+    </select>
+  </div>
+  <ul class="product-list" id="productsList"></ul>
+</section>
+
+
         <ul class="product-list" id="productsList"></ul>
       </section>
     </main>
