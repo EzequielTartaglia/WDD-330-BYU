@@ -4,15 +4,18 @@ import ProductData from './ProductData.mjs';
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const searchTerm = urlParams.get('search'); // Get the value of the 'search' parameter
+const sortingSelector = document.getElementById('sortingSelector')
 
 // Get the parent element where you want to add the product cards
 const productList = document.getElementById('productsList');
 const categoryName = document.getElementById('categoryName');
-categoryName.innerText =
-  searchTerm.charAt(0).toUpperCase() + searchTerm.slice(1).toLowerCase();
+categoryName.innerText =  searchTerm.charAt(0).toUpperCase() + searchTerm.slice(1).toLowerCase();
+
+//Show sortingSelector when a category is displayed
+categoryName.innerText !==  '' && sortingSelector.classList.remove('hide')
 
 // Create an instance of ProductData and fetch products based on the search term
-const productsData = new ProductData(searchTerm);
+const productsData = new ProductData(searchTerm); 
 
 productsData
   .getData()
