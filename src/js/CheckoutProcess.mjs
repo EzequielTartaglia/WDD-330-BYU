@@ -78,22 +78,28 @@ export default class CheckoutProcess {
   }
   async checkout() {
     const formElement = document.forms['checkout'];
+    const errorMessage = document.getElementById('error-message');
 
-    const json = formDataToJSON(formElement);
-    // add totals, and item details
-    json.orderDate = new Date();
-    json.orderTotal = this.orderTotal;
-    json.tax = this.tax;
-    json.shipping = this.shipping;
-    json.items = packageItems(this.list);
-    console.log(json);
-    try {
-      const res = await services.checkout(json);
-      setLocalStorage('so-cart', []);
-      location.assign('/checkout/success.html');
-      console.log(res);
-    } catch (err) {
-        alertMessage(err.message);
+    if (formElement.reportValidity()) {
+        errorMessage.textContent = ''; // Clear previous error messages
+        const json = formDataToJSON(formElement);
+        json.orderDate = new Date();
+        json.orderTotal = this.orderTotal;
+        json.tax = this.tax;
+        json.shipping = this.shipping;
+        json.items = packageItems(this.list);
+
+        try {
+            const res = await services.checkout(json);
+            setLocalStorage('so-cart', []);
+            location.assign('/checkout/success.html');
+            console.log(res);
+          } catch (err) {
+            alertMessage(err.message);
+        }
+    } else {
+        errorMessage.textContent = 'Please fill in all required fields correctly.';
     }
-  }
+}
+
 }
