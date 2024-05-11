@@ -31,5 +31,5 @@ export function updateCartCount(cartKey = 'so-cart') {
   }
   const totalItems = cartItems.length;
   cartCountSpan.textContent = totalItems;
-  console.log(totalItems);
+  //console.log(totalItems);
 }

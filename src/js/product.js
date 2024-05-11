@@ -43,7 +43,7 @@ function addProductToCart(product) {
   setLocalStorage('so-cart', cartItems);
   updateCartCount();
 
-  console.log('Product added to cart');
+  //console.log('Product added to cart');
   // Add the "added" class to the cart icon
   const cartIcon = document.querySelector('.cart-icon svg'); // Select the SVG element
   cartIcon.classList.add('added');
@@ -100,16 +100,13 @@ async function renderProductHTML() {
 renderProductHTML();
 
 // Define a function that handles adding to the cart and updating the count
-function AddToCart(event) {
+function AddToCart() {
   addToCartHandler();
   updateCartCount();
 }
 
-document
-  .getElementById('addToCart')
-  .addEventListener('click', AddToCart);
+document.getElementById('addToCart').addEventListener('click', AddToCart);
 
-  
 // this code instaciat the alert modules and run it
 const alertManager = new Alert();
 alertManager.displayAlerts();
