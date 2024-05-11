@@ -41,39 +41,39 @@ productsData
         break;
     }
 
-    // Create an HTML string representing all the product cards
-    const productCardsHTML = products
-      .map((product) => {
-        // Determine the image source based on the host and search term
-        let imageSource;
-        if (window.location.hostname === 'localhost') {
-          imageSource =
-            searchTerm !== 'tents'
-              ? product.Images.PrimaryMedium
-              : product.Image;
-        } else {
-          imageSource =
-            searchTerm !== 'tents'
-              ? product.Images.PrimaryMedium
-              : product.ImageProduction;
-        }
+  // Create an HTML string representing all the product cards
+  const productCardsHTML = products
+    .map((product) => {
+      // Determine the image source based on the host and search term
+      let imageSource;
+      if (window.location.hostname === 'localhost') {
+        imageSource =
+          searchTerm !== 'tents'
+            ? product.Images.PrimaryMedium
+            : product.Image;
+      } else {
+        imageSource =
+          searchTerm !== 'tents'
+            ? product.Images.PrimaryMedium
+            : product.ImageProduction;
+      }
 
-        return `
-            <li class="product-card" id="${product.Id}">
-                <a href="product_pages/index.html?category=${searchTerm}&Id=${product.Id}">
-                    <img src="${imageSource}" alt="${product.Name}">
-                    <h3 class="card__brand">${product.Brand.Name}</h3>
-                    <h2 class="card__name">${product.Name}</h2>
-                    <p class="product-card__price">$${product.ListPrice}</p>
-                </a>
-            </li>
-        `;
-      })
-      .join('');
+      return `
+          <li class="product-card" id="${product.Id}">
+              <a href="product_pages/index.html?category=${searchTerm}&Id=${product.Id}">
+                  <img src="${imageSource}" alt="${product.Name}">
+                  <h3 class="card__brand">${product.Brand.Name}</h3>
+                  <h2 class="card__name">${product.Name}</h2>
+                  <p class="product-card__price">$${product.ListPrice}</p>
+              </a>
+          </li>
+      `;
+    })
+    .join('');
 
-    // Add the generated HTML to the container element
-    productList.innerHTML = productCardsHTML;
-  })
-  .catch((error) => {
-    //console.error('Error fetching product data:', error);
-  });
+  // Add the generated HTML to the container element
+  productList.innerHTML = productCardsHTML;
+})
+.catch((error) => {
+  //console.error('Error fetching product data:', error);
+});
