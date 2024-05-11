@@ -40,6 +40,7 @@ export default class CheckoutProcess {
     this.list = getLocalStorage(this.key);
     updateCartCount();
     this.calculateItemSummary();
+    this.calculateOrdertotal();
   }
   calculateItemSummary() {
     const summaryElement = document.querySelector(

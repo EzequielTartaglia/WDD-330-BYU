@@ -62,7 +62,7 @@ function cartItemTemplate(item) {
       </a>
       <p class="cart-card__color">${item.Color}</p>
       <p class="cart-card__quantity">qty: 1</p>
-      <p class="cart-card__price">$${item.Price}</p>
+      <p class="cart-card__price">$${item.FinalPrice}</p>
     </li>
   `;
   return newItem;
