@@ -32,8 +32,8 @@ function addProductToCart(product) {
           ? product.Image
           : product.ImageProduction
         : product.Images.PrimaryLarge,
-    Price: product.ListPrice,
-    Color: product.Colors[0].ColorName, // Assuming you want to include the color as well
+        FinalPrice: searchTerm === 'tents' ? parseFloat(product.FinalPrice) : parseFloat(product.FinalPrice),
+        Color: product.Colors[0].ColorName,
     // Add more fields as needed
   };
 

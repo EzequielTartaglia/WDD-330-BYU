@@ -22,14 +22,15 @@ export function setClick(selector, callback) {
   qs(selector).addEventListener('click', callback);
 }
 
-//Function to update the cart counter
+// Function to update the cart counter
 export function updateCartCount(cartKey = 'so-cart') {
   const cartCountSpan = document.querySelector('.cart-count');
-  const cartItems = getLocalStorage(cartKey);
+  const cartItems = JSON.parse(localStorage.getItem(cartKey));
   if (!cartItems || cartItems.length === 0) {
     cartCountSpan.textContent = 0;
+    return; // Agregar un return para salir de la función si no hay elementos en el carrito
   }
   const totalItems = cartItems.length;
   cartCountSpan.textContent = totalItems;
-  //console.log(totalItems);
 }
+

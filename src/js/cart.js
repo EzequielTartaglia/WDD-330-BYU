@@ -24,7 +24,7 @@ function renderCartContents() {
   const htmlItems = cartArray.map((item) => cartItemTemplate(item));
 
   // Calculate total cart price
-  const totalCartPrice = cartArray.reduce((total, item) => total + item.Price, 0);
+  const totalCartPrice = cartArray.reduce((total, item) => total + item.FinalPrice, 0);
 
   // Update total cart HTML element
   totalCart.innerText = `$ ${totalCartPrice.toFixed(2)}`;
