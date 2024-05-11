@@ -9,8 +9,8 @@ function convertToJson(res) {
 
 export default class ExternalServices {
   constructor(category) {
-    this.category = category;
-    this.path = `https://raw.githubusercontent.com/EzequielTartaglia/WDD-330-BYU/main/src/json/${this.category}.json`;
+    //this.category = category;
+    //this.path = `https://raw.githubusercontent.com/EzequielTartaglia/WDD-330-BYU/main/src/json/${this.category}.json`;
   }
   async getData(category) {
     const response = await fetch(baseURL + `products/search/${category}`);
