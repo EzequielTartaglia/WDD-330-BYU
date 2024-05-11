@@ -172,7 +172,7 @@ productsData
     });
   })
   .catch((error) => {
-    console.error('Error fetching product data:', error);
+    //console.error('Error fetching product data:', error);
   });
 
 // Function to create product card HTML

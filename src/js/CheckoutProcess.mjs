@@ -1,6 +1,5 @@
 import ExternalServices from './ExternalServices.mjs';
-import { getLocalStorage, setLocalStorage, updateCartCount, alertMessage,
-    removeAllAlerts, } from './utils.mjs';
+import { getLocalStorage, setLocalStorage, updateCartCount, alertMessage } from './utils.mjs';
 
 const services = new ExternalServices();
 function formDataToJSON(formElement) {
@@ -15,15 +14,15 @@ function formDataToJSON(formElement) {
 }
 
 function packageItems(items) {
-  const simplifiedItems = items.map((item) => {
-    console.log(item);
-    return {
+  const simplifiedItems = items.map((item) => 
+    //console.log(item);
+     ({
       id: item.Id,
       price: item.FinalPrice,
       name: item.Name,
       quantity: 1,
-    };
-  });
+    })
+  );
   return simplifiedItems;
 }
 
@@ -90,10 +89,11 @@ export default class CheckoutProcess {
         json.items = packageItems(this.list);
 
         try {
-            const res = await services.checkout(json);
+            //const res = await services.checkout(json);
+            await services.checkout(json);
             setLocalStorage('so-cart', []);
             location.assign('/checkout/success.html');
-            console.log(res);
+            //console.log(res);
           } catch (err) {
             alertMessage(err.message);
         }
