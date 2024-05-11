@@ -1,5 +1,6 @@
 import ExternalServices from './ExternalServices.mjs';
-import { getLocalStorage, setLocalStorage, updateCartCount } from './utils.mjs';
+import { getLocalStorage, setLocalStorage, updateCartCount, alertMessage,
+    removeAllAlerts, } from './utils.mjs';
 
 const services = new ExternalServices();
 function formDataToJSON(formElement) {
@@ -92,7 +93,7 @@ export default class CheckoutProcess {
       location.assign('/checkout/success.html');
       console.log(res);
     } catch (err) {
-      console.log(err);
+        alertMessage(err.message);
     }
   }
 }
