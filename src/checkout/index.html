@@ -9,6 +9,7 @@
     <title>Sleep Outside | Checkout</title>
 
     <link rel="stylesheet" href="../css/style.css" />
+    <script src="../js/checkout.js" type="module"></script>
   </head>
 
   <body>
@@ -52,13 +53,70 @@
             <!-- <text x="0" y="115" fill="#000000" font-size="5px" font-weight="bold" font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif">Created by Natalia Woodroffe</text>
             <text x="0" y="120" fill="#000000" font-size="5px" font-weight="bold" font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif">from the Noun Project</text> -->
           </svg>
+            <span class="cart-count"></span>
         </a>
       </div>
     </header>
 
-    <main class="divider">
-      <section class="products">
-        <h2>Review & Place your Order</h2>
+    <main class="divider checkout">
+      <h2>Review & Place your Order</h2>
+      <section class="checkout-form">
+          <div id="error-message" style="color: red;"></div>
+        <form name="checkout">
+          <fieldset>
+            <legend>Shipping</legend>
+            <div class="checkout__name">
+              <label for="fname">First Name</label>
+              <input name="fname" pattern="[A-Za-z]+" title="Please enter a valid first name" required />
+              <label for="lname">Last Name</label>
+              <input name="lname" pattern="[A-Za-z]+" title="Please enter a valid last name" required />
+            </div>
+            <div class="checkout__address">
+              <label for="street">Street</label>
+              <input name="street" required />
+              <label for="city">City</label>
+              <input name="city" required />
+              <label for="state">State</label>
+              <input name="state" required />
+              <label for="zip">Zip</label>
+              <input name="zip" id="zip" pattern="[0-9]{5}" title="Please enter a valid ZIP code" required />
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Payment</legend>
+            <label for="cardNumber">Card number</label>
+            <input name="cardNumber" pattern="[0-9]{16}" title="Please enter a valid 16-digit card number" placeholder="xxxx-xxxx-xxxx-xxxx" required />
+            <label for="expiration">Expiration</label>
+            <input name="expiration" pattern="(0[1-9]|1[0-2])\/([0-9]{2})" title="Please enter a valid expiration date (MM/YY)" placeholder="xx/xx" required />
+            <label for="code">Security Code</label>
+            <input name="code" pattern="[0-9]{3}" title="Please enter a valid 3-digit security code" required />
+          </fieldset>
+          <fieldset class="checkout-summary">
+            <legend>Order Summary</legend>
+            <ul>
+              <li>
+                <label for="cartTotal"
+                  >Item Subtotal(<span id="num-items"></span>)</label
+                >
+                <p name="cartTotal" id="cartTotal"></p>
+              </li>
+              <li>
+                <label for="shipping">Shipping Estimate</label>
+                <p id="shipping"></p>
+              </li>
+              <li>
+                <label for="tax">Tax</label>
+                <p id="tax"></p>
+              </li>
+              <li>
+                <label for="orderTotal"><b>Order Total</b></label>
+                <p id="orderTotal"></p>
+              </li>
+            </ul>
+          </fieldset>
+
+          <button class="products-checkout" id="checkoutSubmit" type="submit">Checkout</button>
+        </form>
       </section>
     </main>
 

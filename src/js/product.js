@@ -1,4 +1,4 @@
-import { getLocalStorage, setLocalStorage, updateCartCount } from './utils.mjs';
+import { getLocalStorage, setLocalStorage, updateCartCount, alertMessage } from './utils.mjs';
 import ProductData from './ProductData.mjs';
 import Alert from './Alert';
 
@@ -32,12 +32,13 @@ function addProductToCart(product) {
           ? product.Image
           : product.ImageProduction
         : product.Images.PrimaryLarge,
-    Price: product.ListPrice,
-    Color: product.Colors[0].ColorName, // Assuming you want to include the color as well
+        FinalPrice: searchTerm === 'tents' ? parseFloat(product.FinalPrice) : parseFloat(product.FinalPrice),
+        Color: product.Colors[0].ColorName,
     // Add more fields as needed
   };
 
   cartItems.push(cartProduct);
+  alertMessage(`${product.NameWithoutBrand} added to cart!`);
 
   // Save the updated cart items back to localStorage
   setLocalStorage('so-cart', cartItems);
