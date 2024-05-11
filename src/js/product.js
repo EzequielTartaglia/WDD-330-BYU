@@ -1,4 +1,4 @@
-import { getLocalStorage, setLocalStorage } from './utils.mjs';
+import { getLocalStorage, setLocalStorage, updateCartCount } from './utils.mjs';
 import ProductData from './ProductData.mjs';
 import Alert from './Alert';
 
@@ -41,6 +41,17 @@ function addProductToCart(product) {
 
   // Save the updated cart items back to localStorage
   setLocalStorage('so-cart', cartItems);
+  updateCartCount();
+
+  console.log('Product added to cart');
+  // Add the "added" class to the cart icon
+  const cartIcon = document.querySelector('.cart-icon svg'); // Select the SVG element
+  cartIcon.classList.add('added');
+
+  // Remove the "added" class after a short delay
+  setTimeout(() => {
+    cartIcon.classList.remove('added');
+  }, 500);
 }
 
 // add to cart button event handler
@@ -51,6 +62,7 @@ async function addToCartHandler() {
 
 // Function to generate and insert the inner HTML for the product
 async function renderProductHTML() {
+  updateCartCount();
   // Find the current product by its ID
   const currentProduct = await dataSource.findProductById(productId);
 
@@ -87,9 +99,15 @@ async function renderProductHTML() {
 // Call the function to generate and insert the product HTML
 renderProductHTML();
 
+// Define a function that handles adding to the cart and updating the count
+function AddToCart(event) {
+  addToCartHandler();
+  updateCartCount();
+}
+
 document
   .getElementById('addToCart')
-  .addEventListener('click', addToCartHandler);
+  .addEventListener('click', AddToCart);
 
   
 // this code instaciat the alert modules and run it
