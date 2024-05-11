@@ -3,6 +3,7 @@ import { getLocalStorage, setLocalStorage, updateCartCount } from './utils.mjs';
 const totalCart = document.getElementById('totalCart');
 const cartTotalP = document.getElementById('cartTotalP');
 const cartList = document.getElementById('cartList');
+const checkoutLink = document.getElementById('checkoutLink');
 
 function renderCartContents() {
   // Get cart items from local storage
@@ -12,6 +13,7 @@ function renderCartContents() {
   if (!cartItems || cartItems.length === 0) {
     // If no items, display a message or perform another appropriate action
     cartList.innerHTML = '<li>No products in the cart</li>';
+    hideCartTotal();
     return;
   }
 
@@ -22,25 +24,20 @@ function renderCartContents() {
   const htmlItems = cartArray.map((item) => cartItemTemplate(item));
 
   // Calculate total cart price
-  const totalCartPrice = cartArray.reduce(
-    (total, item) => total + item.Price,
-    0,
-  );
+  const totalCartPrice = cartArray.reduce((total, item) => total + item.Price, 0);
 
   // Update total cart HTML element
   totalCart.innerText = `$ ${totalCartPrice.toFixed(2)}`;
 
-    // Show total cart if total is not zero
-    if (totalCartPrice !== 0) {
-      totalCart.classList.remove('hide')
-      cartTotalP.classList.remove('hide')
-    } else {
-      totalCart.classList.add('hide')
-      cartTotalP.classList.add('hide')
-    }
+  // Show total cart if total is not zero
+  if (totalCartPrice !== 0) {
+    showCartTotal();
+  } else {
+    hideCartTotal();
+  }
 
   // Display items in the product list
-  document.querySelector('.product-list').innerHTML = htmlItems.join('');
+  cartList.innerHTML = htmlItems.join('');
 
   // Add event listeners to the remove buttons
   const removeButtons = document.querySelectorAll('.remove-item');
@@ -92,28 +89,22 @@ function removeItemFromCart(event) {
 
     // Save the updated cart items back to localStorage
     setLocalStorage('so-cart', cartItems);
-    // Calculate total cart price
-    const totalCartPrice = cartItems.reduce(
-      (total, item) => total + item.Price,
-      0,
-    );
-
-    // Update total cart HTML element
-    totalCart.innerText = `$ ${totalCartPrice.toFixed(2)}`;
-
-      // Show total cart if total is not zero
-  if (totalCartPrice !== 0) {
-    totalCart.classList.remove('hide');
-    cartTotalP.classList.remove('hide')
-
-  } else {
-    totalCart.classList.add('hide');
-    cartTotalP.classList.add('hide')
-  }
 
     // Re-render the cart contents
     renderCartContents();
   }
+}
+
+function showCartTotal() {
+  checkoutLink.classList.remove('hide');
+  totalCart.classList.remove('hide');
+  cartTotalP.classList.remove('hide');
+}
+
+function hideCartTotal() {
+  checkoutLink.classList.add('hide');
+  totalCart.classList.add('hide');
+  cartTotalP.classList.add('hide');
 }
 
 // Call the function to render cart contents when the page loads
