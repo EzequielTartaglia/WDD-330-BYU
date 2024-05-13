@@ -5,20 +5,6 @@ class Alert {
        
     }
 
-    async getData() {
-        try {
-            const response = await fetch('../json/alerts.json');
-            if (!response.ok) {
-                throw new Error('Failed to fetch alerts');
-            }
-            //console.log(this.alerts)
-            this.alerts = await response.json();
-            this.displayAlerts(); 
-        } catch (error) {
-            //console.error('Error fetching alerts:', error);
-        }
-    }
-
     displayAlerts() {
         const mainElement = document.querySelector('main');
         const alertSection = document.createElement('section');
