@@ -9,6 +9,7 @@ function renderCartContents() {
   // Get cart items from local storage
   const cartItems = getLocalStorage('so-cart');
   updateCartCount();
+
   // Check if there are items in the cart
   if (!cartItems || cartItems.length === 0) {
     // If no items, display a message or perform another appropriate action
@@ -17,14 +18,28 @@ function renderCartContents() {
     return;
   }
 
-  // Convert cart data to an array if it's not already one
-  const cartArray = Array.isArray(cartItems) ? cartItems : [cartItems];
+  // Create an object to store the cart items with their quantities
+  const cartItemsObject = {};
+
+  // Loop through the cart items and group duplicates
+  cartItems.forEach((item) => {
+    if (cartItemsObject[item.Id]) {
+      // If the item is already in the object, increment its quantity
+      cartItemsObject[item.Id].quantity++;
+    } else {
+      // If the item is not in the object, add it with a quantity of 1
+      cartItemsObject[item.Id] = { ...item, quantity: 1 };
+    }
+  });
+
+  // Convert the object to an array of cart items with quantities
+  const cartArray = Object.values(cartItemsObject);
 
   // Map cart items to HTML elements
   const htmlItems = cartArray.map((item) => cartItemTemplate(item));
 
   // Calculate total cart price
-  const totalCartPrice = cartArray.reduce((total, item) => total + item.FinalPrice, 0);
+  const totalCartPrice = cartArray.reduce((total, item) => total + item.FinalPrice * item.quantity, 0);
 
   // Update total cart HTML element
   totalCart.innerText = `$ ${totalCartPrice.toFixed(2)}`;
@@ -44,6 +59,19 @@ function renderCartContents() {
   removeButtons.forEach((button) => {
     button.addEventListener('click', removeItemFromCart);
   });
+
+  // Add event listeners to the quantity increase buttons
+  const increaseQuantityButton = document.querySelectorAll('.increase-quantity');
+  increaseQuantityButton.forEach((button) => {
+    button.addEventListener('click', increaseItemQuantity)
+  });
+
+  // Add event listeners to the quantity decrease buttons
+  const decreaseQuantityButton = document.querySelectorAll('.decrease-quantity');
+  decreaseQuantityButton.forEach((button) => {
+    button.addEventListener('click', decreaseItemQuantity)
+  });
+
 }
 
 function cartItemTemplate(item) {
@@ -52,7 +80,7 @@ function cartItemTemplate(item) {
   // Create HTML template for a cart item
   const newItem = `
     <li class="cart-card divider" style="${specialStyle}">
-      <button class="remove-item" data-product-id="${item.Id}">X</button>
+      <button class="remove-item" data-product-id="${item.Id}">Delete</button>
 
       <a href="#" class="cart-card__image">
         <img src="${item.Image}" alt="${item.Name}" />
@@ -61,10 +89,16 @@ function cartItemTemplate(item) {
         <h2 class="card__name">${item.Name}</h2>
       </a>
       <p class="cart-card__color">${item.Color}</p>
-      <p class="cart-card__quantity">qty: 1</p>
+      <div class="cart-card__quantity-controls">
+        <button class="quantity-control increase-quantity" data-product-id="${item.Id}">+</button>
+        <p class="cart-card__quantity">Qty: ${item.quantity}</p>
+        <button class="quantity-control decrease-quantity" data-product-id="${item.Id}">-</button>
+      </div>
       <p class="cart-card__price">$${item.FinalPrice}</p>
     </li>
   `;
+
+  // Return the HTML template for the cart item
   return newItem;
 }
 
@@ -80,18 +114,61 @@ function removeItemFromCart(event) {
     cartItems = [];
   }
 
-  // Find the index of the first occurrence of the item with the specified productId
-  const index = cartItems.findIndex((item) => item.Id === productId);
+  // Filter out all items with the specified productId
+  cartItems = cartItems.filter((item) => item.Id !== productId);
 
-  // If the product is found, remove it from the array
-  if (index !== -1) {
-    cartItems.splice(index, 1);
+  // Save the updated cart items back to localStorage
+  setLocalStorage('so-cart', cartItems);
 
-    // Save the updated cart items back to localStorage
-    setLocalStorage('so-cart', cartItems);
+  // Re-render the cart contents
+  renderCartContents();
+}
 
-    // Re-render the cart contents
-    renderCartContents();
+// Function to increase quantity of an item in the cart
+function increaseItemQuantity(event) {
+  const productId = event.target.dataset.productId;
+  
+  // Retrieve cart items from localStorage
+  let cartItems = getLocalStorage('so-cart') || [];
+
+  // Iterate through the cart items
+  for (let i = 0; i < cartItems.length; i++) {
+    if (cartItems[i].Id === productId) {
+      cartItems.push(cartItems[i])
+      // Save the updated cart items back to localStorage
+      setLocalStorage('so-cart', cartItems);
+      // Re-render the cart contents
+      renderCartContents();
+      // Exit the loop since we found the item
+      return;
+    }
+  }
+}
+
+// Function to decrease quantity of an item in the cart
+function decreaseItemQuantity(event) {
+  const productId = event.target.dataset.productId;
+  // Retrieve cart items from localStorage
+  let cartItems = getLocalStorage('so-cart');
+  // If cartItems is null or undefined, initialize it as an empty array
+  if (!Array.isArray(cartItems)) {
+    cartItems = [];
+  }
+  // Iterate through the cart items
+  for (let i = 0; i < cartItems.length; i++) {
+    if (cartItems[i].Id === productId) {
+      if (cartItems[i].quantity == 1) {
+        cartItems.splice(i, 1);
+      } else {
+        cartItems.pop(cartItems[i])
+      }
+      // Save the updated cart items back to localStorage
+      setLocalStorage('so-cart', cartItems);
+      // Re-render the cart contents
+      renderCartContents();
+      // Exit the loop since we found the item
+      return;
+    }
   }
 }
 

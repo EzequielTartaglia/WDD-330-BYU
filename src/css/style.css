@@ -165,14 +165,35 @@ button {
   text-decoration: none;
   color: var(--dark-grey);
 }
+
 /* Styles for product lists */
 .product-card {
-  flex: 1 1 45%;
+  display: flex;
+  flex-direction: column;
   margin: 0.25em;
   padding: 0.5em;
   border: 1px solid var(--light-grey);
   max-width: 250px;
 }
+
+.product-card a {
+  display: block;
+  text-align: center;
+  height: 100%; 
+}
+
+.product-card img {
+  display: block;
+  margin: auto;
+}
+
+.product-card button {
+  padding: 5px;
+  width: 120px;
+  font-size: 15px;
+  border-radius: 5px;
+}
+
 .product-card h2,
 .product-card h3,
 .product-card p {
@@ -192,6 +213,10 @@ button {
   padding: 1em;
   max-width: 500px;
   margin: auto;
+}
+
+#addToCart {
+  border-radius: 6px;
 }
 
 .product-detail img {
@@ -240,9 +265,37 @@ button {
   grid-column: 2;
 }
 
-.cart-card__quantity {
-  grid-row: 1;
-  grid-column: 3;
+.cart-card__quantity { /*The quantity value selector */
+  padding: 0;
+  margin: 0;
+}
+
+.cart-card__quantity-label {
+  margin-top: 0;
+  margin-bottom: 0;
+  text-align: left;
+}
+
+.cart-card__quantity-controls { /*The container for the quantity value and controls selector */
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+  font-size: 20px;
+  width: 80px;
+  margin-top: 40px;
+}
+
+.quantity-control { /*The quantity controls selector*/
+  background-color: white;
+  font-size: 30px;
+  cursor: pointer;
+  color: black;
+  padding: 0;
+  margin-right: 30px;
+}
+
+.quantity-control:active {
+  color: darkorange;
 }
 
 .cart-card__price {
