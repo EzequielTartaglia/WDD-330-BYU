@@ -10,11 +10,17 @@ function renderCartContents() {
   const cartItems = getLocalStorage('so-cart');
   updateCartCount();
 
+
+  if (!cartList) {
+    return;
+  }
   // Check if there are items in the cart
   if (!cartItems || cartItems.length === 0) {
     // If no items, display a message or perform another appropriate action
-    cartList.innerHTML = '<li>No products in the cart</li>';
-    hideCartTotal();
+    if (cartList) {
+      cartList.innerHTML = '<li>No products in the cart</li>';
+      hideCartTotal();
+    }
     return;
   }
 
