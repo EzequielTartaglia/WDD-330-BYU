@@ -1,4 +1,5 @@
-import ProductData from './ProductData.mjs';
+import ProductData from './src/js/ProductData.mjs';
+
 
 // Get the search term from the URL
 const queryString = window.location.search;
