@@ -7,7 +7,7 @@ class Alert {
 
     async getData() {
         try {
-            const response = await fetch('../json/alerts.json');
+            const response = await fetch(`https://raw.githubusercontent.com/EzequielTartaglia/WDD-330-BYU/main/src/json/alerts.json`);
             if (!response.ok) {
                 throw new Error('Failed to fetch alerts');
             }
