@@ -22,5 +22,5 @@ Use this as a starting point to complete the WDD 330 team activity: the SleepOut
 ## Netlify 
 
 #### URL
-https://sleepoutsidecamping.netlify.app/
+https://sleepoutsidebyui.netlify.app/
 
