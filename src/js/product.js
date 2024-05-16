@@ -38,7 +38,7 @@ function addProductToCart(product) {
   };
 
   cartItems.push(cartProduct);
-  alertMessage(`${product.NameWithoutBrand} added to cart!`);
+  alertMessage(`${product.NameWithoutBrand} added to cart!`,'orange');
 
   // Save the updated cart items back to localStorage
   setLocalStorage('so-cart', cartItems);
@@ -82,9 +82,9 @@ async function renderProductHTML() {
         ? currentProduct.Images.PrimaryLarge
         : currentProduct.ImageProduction;
   }
-
+  
   // Create the HTML for the product
-  const productHTML = `
+  const productHTML = `  
     <h3>${currentProduct.Brand.Name}</h3>
     <h2 class="divider">${currentProduct.Name}</h2>
     <img class="divider" src="${imageSource}" alt="${currentProduct.Name}">
@@ -111,3 +111,7 @@ document.getElementById('addToCart').addEventListener('click', AddToCart);
 // this code instaciat the alert modules and run it
 const alertManager = new Alert();
 alertManager.displayAlerts();
+
+// Llama a la función alertMessage con los parámetros deseados
+alertMessage('This is only a test', 'blue', 'white', true);
+
