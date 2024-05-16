@@ -1,10 +1,67 @@
 import ProductData from './ProductData.mjs';
+import { getLocalStorage, setLocalStorage, updateCartCount, alertMessage } from './utils.mjs';
 
 // Get the search term from the URL
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const searchTerm = urlParams.get('search'); // Get the value of the 'search' parameter
 const sortingSelector = document.getElementById('sortingSelector')
+
+// Función para agregar un producto al carrito
+function addProductToCart(product) {
+  // Obtiene los elementos del carrito del localStorage
+  let cartItems = getLocalStorage('so-cart');
+
+  // Inicializa el carrito como un array vacío si no hay elementos
+  if (!Array.isArray(cartItems)) {
+    cartItems = [];
+  }
+
+  // Agrega el nuevo producto al carrito
+  const cartProduct = {
+    Id: product.Id,
+    Name: product.Name,
+    Image: product.Images.PrimaryLarge,
+    FinalPrice: parseFloat(product.FinalPrice),
+    Color: product.Colors[0].ColorName,
+    // Agrega más campos si es necesario
+  };
+
+  cartItems.push(cartProduct);
+  alertMessage(`${product.NameWithoutBrand} added to cart!`);
+
+  // Guarda los elementos actualizados del carrito en el localStorage
+  setLocalStorage('so-cart', cartItems);
+  updateCartCount();
+
+  // Agrega la clase "added" al icono del carrito
+  const cartIcon = document.querySelector('.cart-icon svg');
+  cartIcon.classList.add('added');
+
+  // Quita la clase "added" después de un corto tiempo
+  setTimeout(() => {
+    cartIcon.classList.remove('added');
+  }, 500);
+}
+
+// Función que maneja el evento de hacer clic en "Add to Cart"
+async function addToCartHandler(productId) {
+  const dataSource = new ProductData(); // No necesitamos el término de búsqueda aquí
+  const product = await dataSource.findProductById(productId);
+  addProductToCart(product);
+}
+
+// Manejador de eventos para el clic en "Add to Cart"
+function handleAddToCartClick(event) {
+  const productId = event.target.dataset.productId;
+  addToCartHandler(productId);
+}
+
+// Obtén todos los botones "Add to Cart" y agrega el manejador de eventos a cada uno
+const addToCartButtons = document.querySelectorAll('.product-card button');
+addToCartButtons.forEach(button => {
+  button.addEventListener('click', handleAddToCartClick);
+});
 
 // Get the parent element where you want to add the product cards
 const productList = document.getElementById('productsList');
@@ -130,7 +187,7 @@ productsData
                     <h2 class="card__name">${product.Name}</h2>
                     <p class="product-card__price">$${product.ListPrice}</p>
                 </a>
-                <button id="AddToCart">Add to Cart</button>
+                <button id="addToCart" data-product-id="${product.Id}">Add to Cart</button>
             </li>
         `;
       })
@@ -197,6 +254,7 @@ function createProductCardHTML(product) {
               <h3 class="card__brand">${product.Brand.Name}</h3>
               <h2 class="card__name">${product.Name}</h2>
               <p class="product-card__price">$${product.ListPrice}</p>
+              <button id="addToCart" data-product-id="${product.Id}">Add to Cart</button>
           </a>
       </li>
   `;
