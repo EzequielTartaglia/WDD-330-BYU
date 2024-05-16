@@ -130,7 +130,7 @@ productsData
                     <h2 class="card__name">${product.Name}</h2>
                     <p class="product-card__price">$${product.ListPrice}</p>
                 </a>
-                <button id="pAddToCart">Add to Cart</button>
+                <button id="AddToCart">Add to Cart</button>
             </li>
         `;
       })
@@ -198,6 +198,7 @@ function createProductCardHTML(product) {
               <h2 class="card__name">${product.Name}</h2>
               <p class="product-card__price">$${product.ListPrice}</p>
           </a>
+          <button id="AddToCart">Add to Cart</button>
       </li>
   `;
 }
