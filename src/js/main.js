@@ -1,4 +1,5 @@
 import ProductData from './ProductData.mjs';
+import { calculateDiscount } from './utils.mjs';
 
 // Get the search term from the URL
 const queryString = window.location.search;
@@ -15,7 +16,8 @@ categoryName.innerText =  searchTerm.charAt(0).toUpperCase() + searchTerm.slice(
 categoryName.innerText !==  '' && sortingSelector.classList.remove('hide')
 
 // Create an instance of ProductData and fetch products based on the search term
-const productsData = new ProductData(searchTerm); 
+const productsData = new ProductData(searchTerm);
+
 
 productsData
   .getData()
@@ -108,6 +110,7 @@ productsData
     // Create an HTML string representing all the product cards
     const productCardsHTML = products
       .map((product) => {
+        const discountInfo = calculateDiscount(product.ListPrice, product.FinalPrice);
         // Determine the image source based on the host and search term
         let imageSource;
         if (window.location.hostname === 'localhost') {
@@ -129,13 +132,13 @@ productsData
                     <h3 class="card__brand">${product.Brand.Name}</h3>
                     <h2 class="card__name">${product.Name}</h2>
                     <p class="product-card__price">$${product.ListPrice}</p>
+                    ${discountInfo ? `<p class="product-discount">${discountInfo}</p>` : ''}
                 </a>
                 <button id="AddToCart">Add to Cart</button>
             </li>
         `;
       })
       .join('');
-
     // Add the generated HTML to the container element
     productList.innerHTML = productCardsHTML;
 
@@ -178,6 +181,7 @@ productsData
 
 // Function to create product card HTML
 function createProductCardHTML(product) {
+  const discountInfo = calculateDiscount(product.ListPrice, product.FinalPrice);
   // Determine the image source based on the host and search term
   let imageSource;
   if (window.location.hostname === 'localhost') {
@@ -197,6 +201,7 @@ function createProductCardHTML(product) {
               <h3 class="card__brand">${product.Brand.Name}</h3>
               <h2 class="card__name">${product.Name}</h2>
               <p class="product-card__price">$${product.ListPrice}</p>
+              ${discountInfo ? `<p class="product-discount">${discountInfo}</p>` : ''}
           </a>
           <button id="AddToCart">Add to Cart</button>
       </li>
@@ -264,4 +269,3 @@ for (let i = 0; i < ca.length; i++) {
 }
 return null;
 }
-

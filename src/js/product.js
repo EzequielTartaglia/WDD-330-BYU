@@ -1,4 +1,4 @@
-import { getLocalStorage, setLocalStorage, updateCartCount, alertMessage } from './utils.mjs';
+import { getLocalStorage, setLocalStorage, updateCartCount, alertMessage, calculateDiscount } from './utils.mjs';
 import ProductData from './ProductData.mjs';
 import Alert from './Alert';
 
@@ -9,14 +9,13 @@ const productId = currentUrl.searchParams.get('Id');
 // Get the search term from the URL
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
-const searchTerm = urlParams.get('category'); // Get the value of the 'search' parameter
+const searchTerm = urlParams.get('category');
 
 const dataSource = new ProductData(searchTerm);
 
 function addProductToCart(product) {
   // Get the existing cart items from localStorage
   let cartItems = getLocalStorage('so-cart');
-
   // If cartItems is null or undefined, initialize it as an empty array
   if (!Array.isArray(cartItems)) {
     cartItems = [];
@@ -26,19 +25,17 @@ function addProductToCart(product) {
   const cartProduct = {
     Id: product.Id,
     Name: product.Name,
-    Image:
-      searchTerm === 'tents'
-        ? window.location.hostname === 'localhost'
-          ? product.Image
-          : product.ImageProduction
-        : product.Images.PrimaryLarge,
-        FinalPrice: searchTerm === 'tents' ? parseFloat(product.FinalPrice) : parseFloat(product.FinalPrice),
-        Color: product.Colors[0].ColorName,
-    // Add more fields as needed
+    Image: searchTerm === 'tents'
+      ? window.location.hostname === 'localhost'
+        ? product.Image
+        : product.ImageProduction
+      : product.Images.PrimaryLarge,
+    FinalPrice: parseFloat(product.FinalPrice),
+    Color: product.Colors[0].ColorName,
   };
 
   cartItems.push(cartProduct);
-  alertMessage(`${product.NameWithoutBrand} added to cart!`,'orange');
+  alertMessage(`${product.NameWithoutBrand} added to cart!`, 'orange');
 
   // Save the updated cart items back to localStorage
   setLocalStorage('so-cart', cartItems);
@@ -46,7 +43,7 @@ function addProductToCart(product) {
 
   //console.log('Product added to cart');
   // Add the "added" class to the cart icon
-  const cartIcon = document.querySelector('.cart-icon svg'); // Select the SVG element
+  const cartIcon = document.querySelector('.cart-icon svg');
   cartIcon.classList.add('added');
 
   // Remove the "added" class after a short delay
@@ -64,12 +61,11 @@ async function addToCartHandler() {
 // Function to generate and insert the inner HTML for the product
 async function renderProductHTML() {
   updateCartCount();
-  // Find the current product by its ID
+    // Find the current product by its ID
   const currentProduct = await dataSource.findProductById(productId);
 
-  // Get the parent element where the product HTML will be inserted
+    // Get the parent element where the product HTML will be inserted
   const productContainer = document.getElementById('productDetail');
-
   let imageSource;
   if (window.location.hostname === 'localhost') {
     imageSource =
@@ -82,21 +78,22 @@ async function renderProductHTML() {
         ? currentProduct.Images.PrimaryLarge
         : currentProduct.ImageProduction;
   }
-  
-  // Create the HTML for the product
+
+  const discountInfo = calculateDiscount(currentProduct.ListPrice, currentProduct.FinalPrice);
+    // Create the HTML for the product
   const productHTML = `  
     <h3>${currentProduct.Brand.Name}</h3>
     <h2 class="divider">${currentProduct.Name}</h2>
     <img class="divider" src="${imageSource}" alt="${currentProduct.Name}">
-    <p class="product-card__price">$${currentProduct.ListPrice}</p>
+    <p class="product-card__price">$${currentProduct.FinalPrice}</p>
+    ${discountInfo ? `<p class="product-discount">${discountInfo}</p>` : ''}
     <p class="product__color">${currentProduct.Colors[0].ColorName}</p>
     <p class="product__description">${currentProduct.DescriptionHtmlSimple}</p>
   `;
-
+  
   // Insert the product HTML into the parent element
   productContainer.innerHTML = productHTML;
 }
-
 // Call the function to generate and insert the product HTML
 renderProductHTML();
 
@@ -114,4 +111,3 @@ alertManager.displayAlerts();
 
 // Llama a la función alertMessage con los parámetros deseados
 alertMessage('This is only a test', 'blue', 'white', true);
-
