@@ -94,6 +94,7 @@ button {
 .divider {
   border-bottom: 2px solid var(--primary-color);
 }
+
 /* End utility classes */
 
 /* Cart icon styles */
@@ -446,6 +447,11 @@ fieldset {
   flex: 1;
 }
 
+.product-discount {
+  font-weight: bold;
+  color: darkred;
+}
+
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;
@@ -574,6 +580,15 @@ footer {
     justify-content: space-between;
     margin: 20px;
     gap: 1rem;
+  }
+
+  .product-card {
+   margin: 0 auto;
+  }
+  
+  .divider {
+    margin: 0 auto;
+    width: 85%;
   }
   
 }

@@ -61,3 +61,12 @@ export function removeAllAlerts() {
   const alerts = document.querySelectorAll('.alert');
   alerts.forEach((alert) => document.querySelector('main').removeChild(alert));
 }
+
+export function calculateDiscount(listPrice, finalPrice) {
+  if (listPrice > finalPrice) {
+    let discount = listPrice - finalPrice;
+    let discountPercentage = ((discount / listPrice) * 100).toFixed(0);
+    return 'Save' + discountPercentage +'%';
+  }
+  return 'Save 0%';
+}
