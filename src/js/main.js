@@ -85,8 +85,9 @@ document.addEventListener('DOMContentLoaded', function() {
                   <p class="product-card__price">$${product.ListPrice}</p>
                   ${discountInfo ? `<p class="product-discount">${discountInfo}</p>` : ''}
               </a>
+              <button class="quick-view" data-product-id="${product.Id}" style="margin-bottom: 5px;">Quick View</button>
               <button class="add-to-cart">Add to Cart</button>
-              <button class="quick-view" data-product-id="${product.Id}">Quick View</button>
+        
           </li>
         `;
       }

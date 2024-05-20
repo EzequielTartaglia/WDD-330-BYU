@@ -728,3 +728,7 @@ footer {
   border-radius: 8px;
   margin-top: 20px;
 }
+
+button-spacing {
+  padding-bottom: 10px;
+}
